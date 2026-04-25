@@ -1,155 +1,91 @@
-# Human-Gacha
+# 인간 가챠 (Human-Gacha)
 
-Human-Gacha is a demo-first Flutter MVP for the Korean product concept
-`인간 가챠`.
+**인간 가챠**는 사용자가 목표를 쓰지 않고 뽑기로 결정하는 B급 자기관리 데모 앱입니다. 
+기존의 진지한 자기관리 방식에서 벗어나, "어차피 망한 하루, 가볍게 돌리고 작게 성공하자"는 모토로 기획되었습니다.
 
-Instead of asking users to write goals, the app lets them pick a few current
-states and draws a "human grade" plus a short mission for today. The product is
-designed around a 90-second presentation loop: pickup humans, draw animation,
-AI/fallback result card, mission reward, and a dummy friend-room feed.
+## 📌 주요 특징
 
-## Product Summary
+- **목표 가챠 시스템**: 사용자가 오늘의 상태(예: 잠 부족, 코테 준비 중)를 몇 개 선택하면, AI가 인간 등급(N ~ LEGEND)과 짧은 미션을 확률에 따라 뽑아줍니다.
+- **AI 개인화 결과 카드**: 매일 사용자의 맥락에 맞춰 "SR 계획적인 취준 인간", "SSR 오전 부팅 성공자" 등의 B급 유머 카드가 생성됩니다.
+- **실패의 콘텐츠화**: 미션을 성공하면 뱃지를 얻지만, 실패하더라도 벌점이 아닌 웃긴 '실패 칭호'와 '자아 파편'을 얻어 밈(Meme)처럼 즐길 수 있습니다.
+- **소셜 피드 공유**: 자신의 가챠 결과와 미션 성공/실패 여부를 친구방에 공유하고, 가볍게 리액션을 주고받을 수 있습니다.
 
-- One-line pitch: 오늘의 상태를 몇 개 고르면 AI가 인간 등급과 오늘의 미션을 뽑아주는 B급 자기관리 가챠 앱
-- Tone: light, goofy, B-grade self-management humor without insulting the user
-- P0 priority: demo value, screenshotable moments, and presentation stability
-- Reliability rule: even if AI, network, auth, or remote storage fails, the demo loop must still finish
+> 갓생을 강요하지 않습니다. 오늘 하루 덜 망한 인간을 뽑습니다.
 
-The main product source of truth is
-[`docs/product/인간_가챠_PRD_v2_demo_first.md`](docs/product/%EC%9D%B8%EA%B0%84_%EA%B0%80%EC%B1%A0_PRD_v2_demo_first.md).
+자세한 기획 의도와 기획서는 [`docs/product/인간_가챠_PRD_v2_demo_first.md`](docs/product/%EC%9D%B8%EA%B0%84_%EA%B0%80%EC%B1%A0_PRD_v2_demo_first.md)에서 확인할 수 있습니다.
 
-## Current Scope
+## 🚀 데모 플로우 (P0 핵심 루프)
 
-The current app is centered on the P0 demo loop.
+이 프로젝트는 현재 **시연과 데모 발표**에 최적화된 P0 범위를 중심으로 개발되어 있습니다.
 
-- Splash with two entry paths: `데모로 시작하기` and onboarding
-- Local onboarding and demo user setup
-- Home screen with today's pickup humans, buff banners, humanity gauge, and draw CTA
-- Mood selection with a 1-3 item limit
-- Multi-step draw animation
-- Result card generation with fallback safety path
-- Mission success/failure reward flow
-- Dummy friend room / whole room social stage
-- Demo mode presets for stable SR / SSR / failure presentation
+1. **스플래시 및 온보딩**: 데모용 유저 즉시 진입 가능
+2. **홈 (Home)**: 오늘의 픽업 인간, 버프, 뽑기 버튼 노출
+3. **상태 선택 (Mood Select)**: 오늘 나의 상태 선택 (최대 3개)
+4. **뽑기 연출 (Draw Animation)**: 캡슐 흔들림, 스캔, 등급 실루엣 등 3단계 기대감 연출
+5. **결과 카드 (Result Card)**: AI가 생성한(또는 Fallback) 등급, 칭호, 맞춤 미션 확인
+6. **미션 결과 (Mission Reward)**: 미션 성공 시 뱃지, 실패 시 칭호 및 파편 보상 획득
+7. **소셜 피드 (Social Stage)**: 친구방(더미 피드)에 내 결과 공유 및 전체방 통계 확인
 
-Planned but not yet completed as product infrastructure:
+**데모 안정성 정책**: 네크워크나 AI 호출이 실패하더라도 5초 이내에 로컬 Fallback 카드를 보여주어 데모 시연이 끊기지 않도록 설계되었습니다.
 
-- Firebase Auth / Firestore persistence
-- Real social graph, invitations, reactions sync
-- Production-grade remote AI configuration and secret management
+## 🛠 기술 스택
 
-## Demo Flow
+- **프레임워크**: Flutter
+- **언어**: Dart 3.11
+- **상태 관리**: Riverpod
+- **라우팅**: go_router
+- **외부 통신**: http (AI API 요청)
+- **폰트**: google_fonts
 
-The intended presentation path matches the implemented screen structure:
+현재 코드는 로컬 인메모리 기반으로 구동되며, 인증(Firebase Auth)과 데이터베이스(Firestore) 연동은 향후 기능(P1)으로 계획되어 있습니다.
 
-1. Splash or demo entry
-2. Home
-3. Mood select
-4. Draw animation
-5. Result card
-6. Mission detail
-7. Success or failure reward
-8. Friend room / whole room summary
-
-Default demo assumptions:
-
-- Demo user: `현기 / 취준 인간`
-- Default moods: `잠 부족`, `카페인 필요`, `코테 준비 중`
-- Primary showcase result: `SR` or `SSR`
-- `LEGEND` is kept as a reserve impact card, not the default demo path
-
-## Tech Stack
-
-- Flutter
-- Dart 3.11
-- Riverpod for app state
-- go_router for navigation
-- http for AI API requests
-- google_fonts for typography
-
-The repository already includes Firebase-related packages in `pubspec.yaml`, but
-the active P0 demo loop is still local-first and does not depend on Firebase to
-run.
-
-## Project Structure
+## 📂 프로젝트 구조
 
 ```text
 lib/
   main.dart
   src/
-    app/              # app bootstrap, theme, router
-    features/         # splash, onboarding, home, draw, result, mission, social
-    shared/           # models, widgets, fallback/AI services
+    app/              # 앱 초기 설정, 테마, 라우팅
+    features/         # 도메인별 기능 (splash, home, draw, result, mission, social 등)
+    shared/           # 공통 모델, 위젯, AI/Fallback 서비스
 docs/
-  product/            # PRD and design direction
-  architecture/       # layer and dependency rules
-  reliability/        # demo fallback and failure handling rules
-  quality/            # quality gates
-  exec-plans/         # implementation plans and decisions
+  product/            # 기획서(PRD) 및 디자인 방향성
+  architecture/       # 아키텍처 의존성 설계 방향
+  reliability/        # 데모 안정성 및 실패 대응 규칙
+  quality/            # 품질 관리 및 수용 기준
+  exec-plans/         # 단계별 실행 계획
 test/
-  unit/               # draw grade, fallback card, mood selection tests
+  unit/               # 가챠 확률, Fallback, 폼 상태 등의 핵심 로직 유닛 테스트
 ```
 
-## Getting Started
+## ⚙️ 시작하기
 
-### Prerequisites
+### 환경 준비
 
-- Flutter SDK installed and available on your shell
-- A macOS/iOS or Android Flutter development environment if you want to run the app locally
+- Flutter SDK 설치 완료 (macOS/iOS 또는 Android 개발 환경)
 
-### Install Dependencies
+### 의존성 설치
 
 ```sh
 make get
 ```
 
-### Run The App
+### 실행 방법
 
 ```sh
 flutter run
 ```
+빠른 데모 확인을 위해서는 스플래시 화면에서 **`데모로 시작하기`** 버튼을 누르세요.
 
-If you want the fastest demo path, start with `데모로 시작하기` on the splash
-screen.
+## ✅ 품질 검사 (Quality Checks)
 
-## Quality Checks
-
-Run the full local gate before shipping code changes:
+코드 변경 사항을 반영하기 전에 항상 아래 명령어를 실행하여 품질 기준을 확인합니다:
 
 ```sh
 make check
 ```
+이 명령어는 포맷팅(`make format-check`), 정적 분석(`make analyze`), 그리고 유닛 테스트(`make test`)를 한 번에 실행합니다.
 
-This runs:
+---
 
-- `make format-check`
-- `make analyze`
-- `make test`
-
-## AI And Fallback Behavior
-
-The app is intentionally safe for unstable demo environments.
-
-- `AiCardService` has a 5-second timeout
-- If the API key is missing, the request fails, or JSON parsing breaks, the app falls back immediately
-- `FallbackCardService` returns deterministic local cards by grade
-- Demo mode can force grade and success/failure outcome for repeatable presentations
-
-At the moment, no runtime secret wiring is documented in this repo for live AI
-usage. The current implementation is safe to run as a fallback-first demo.
-
-## Key Docs
-
-- [`docs/product/인간_가챠_PRD_v2_demo_first.md`](docs/product/%EC%9D%B8%EA%B0%84_%EA%B0%80%EC%B1%A0_PRD_v2_demo_first.md)
-- [`docs/product/DESIGN.md`](docs/product/DESIGN.md)
-- [`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECTURE.md)
-- [`docs/reliability/RELIABILITY.md`](docs/reliability/RELIABILITY.md)
-- [`docs/quality/QUALITY.md`](docs/quality/QUALITY.md)
-- [`docs/exec-plans/0002-p0-demo-loop.md`](docs/exec-plans/0002-p0-demo-loop.md)
-- [`docs/exec-plans/0003-p1-firebase-auth.md`](docs/exec-plans/0003-p1-firebase-auth.md)
-
-## Notes
-
-- This repository is optimized for a demo-first MVP, not a production launch
-- The first screen should communicate the product concept quickly rather than act as a marketing landing page
-- Dummy social data is intentional in P0 and should not be presented as live production data
+*참고: 현재 저장소는 제품 출시보다는 해커톤이나 데모 시연에 최적화된 MVP 상태입니다. 더미 데이터(친구방, 전체방 통계)가 포함되어 있으며 실제 상용 백엔드는 연결되지 않았습니다.*
