@@ -1,10 +1,10 @@
-# Execution Plans
+# 실행 계획
 
-Store non-trivial implementation plans here before or during execution.
+작지 않은 구현 작업은 시작 전이나 진행 중에 이 폴더에 계획으로 남깁니다.
 
-## Naming
+## 파일 이름
 
-Use a numbered, descriptive filename:
+번호와 목적이 드러나는 이름을 사용합니다.
 
 ```text
 0001-harness-bootstrap.md
@@ -12,21 +12,21 @@ Use a numbered, descriptive filename:
 0003-ai-card-fallback.md
 ```
 
-## Required Sections
+## 필수 섹션
 
-- Goal
-- Scope
-- Key decisions
-- Implementation outline
-- Verification
-- Status
+- 목표
+- 범위
+- 주요 결정
+- 구현 개요
+- 검증
+- 상태
 
-## Status Values
+## 상태 값
 
-- `planned`
-- `in-progress`
-- `done`
-- `superseded`
+- `planned`: 계획됨
+- `in-progress`: 진행 중
+- `done`: 완료
+- `superseded`: 다른 계획으로 대체됨
 
-When a plan changes materially, update the existing file if it is the same work.
-Create a new plan only when the scope or decision set changes.
+계획이 같은 작업 안에서 바뀌면 기존 파일을 업데이트합니다. 범위나 결정 자체가
+달라질 때만 새 계획 파일을 만듭니다.

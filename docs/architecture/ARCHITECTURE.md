@@ -1,41 +1,39 @@
-# Architecture
+# 아키텍처
 
-## Current State
+## 현재 상태
 
-The repository is intentionally a Flutter shell. Product implementation starts
-after the harness is in place.
+이 레포는 의도적으로 Flutter 기본 셸 상태에서 시작합니다. 제품 기능 구현은
+하네스가 잡힌 뒤 PRD 기준으로 진행합니다.
 
-## Recommended App Shape
+## 권장 앱 구조
 
-- `lib/main.dart`: entry point only.
-- `lib/src/app`: app bootstrap, router, theme, and top-level providers.
-- `lib/src/features/<feature>`: feature-owned screens, state, data, and domain
-  logic.
-- `lib/src/shared`: reusable widgets, utilities, constants, and cross-feature
-  contracts.
+- `lib/main.dart`: 앱 진입점만 둡니다.
+- `lib/src/app`: 앱 부트스트랩, 라우터, 테마, 최상위 provider를 둡니다.
+- `lib/src/features/<feature>`: 기능별 화면, 상태, 데이터, 도메인 로직을 둡니다.
+- `lib/src/shared`: 공용 위젯, 유틸, 상수, feature 간 공유 계약을 둡니다.
 
-## Dependency Direction
+## 의존 방향
 
-Use this direction by default:
+기본 의존 방향은 아래를 따릅니다.
 
 ```text
 app -> features -> shared
 ```
 
-Feature modules should not directly import each other. If two features need the
-same model or helper, move the shared contract into `lib/src/shared`.
+feature 모듈끼리 직접 import하지 않습니다. 두 feature가 같은 모델이나 helper를
+필요로 하면 공유 계약을 `lib/src/shared`로 올립니다.
 
-## P0 Feature Boundaries
+## P0 기능 경계
 
-Keep the first demo loop local and deterministic:
+첫 데모 루프는 로컬 상태와 결정적인 데이터로 유지합니다.
 
-- Demo user and onboarding choices live in local app state.
-- Mood selection and draw state should not require authentication.
-- AI card generation must have an immediate fallback path.
-- Room and whole-room views use demo data until the P0 loop is complete.
+- 데모 사용자와 온보딩 선택은 로컬 앱 상태에 둡니다.
+- 오늘 상태 선택과 뽑기 상태는 인증을 요구하지 않습니다.
+- AI 카드 생성에는 즉시 표시 가능한 fallback 경로가 있어야 합니다.
+- 친구방과 전체방은 P0 루프가 완성될 때까지 데모 데이터를 사용합니다.
 
-## Enforcement Level
+## 강제 수준
 
-Architecture is documented, not mechanically enforced yet. The active gates are
-formatting, analyzer, tests, and CI. Add structural checks only after the app has
-enough code for violations to become likely.
+현재 아키텍처 규칙은 문서로만 강제합니다. 활성 품질 게이트는 포맷, analyzer,
+테스트, CI입니다. 구조 검사 스크립트는 앱 코드가 충분히 쌓여 실제 위반 가능성이
+커진 뒤 추가합니다.

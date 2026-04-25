@@ -1,42 +1,42 @@
-# Quality
+# 품질
 
-## Active Gates
+## 활성 품질 게이트
 
-Every code change should pass:
+코드 변경은 기본적으로 아래 명령을 통과해야 합니다.
 
 ```sh
 make check
 ```
 
-This runs:
+이 명령은 아래 검사를 실행합니다.
 
 - `dart format --set-exit-if-changed .`
 - `flutter analyze`
 - `flutter test`
 
-## Minimum Acceptance Standard
+## 최소 수용 기준
 
-- No analyzer errors.
-- Tests pass locally.
-- Formatting is stable.
-- Flutter app shell remains runnable.
-- Documentation changes keep links and paths accurate.
+- analyzer 오류가 없어야 합니다.
+- 로컬 테스트가 통과해야 합니다.
+- 포맷 결과가 안정적이어야 합니다.
+- Flutter 앱 셸이 계속 실행 가능한 상태여야 합니다.
+- 문서 변경 시 링크와 경로가 실제 구조와 맞아야 합니다.
 
-## Product Quality Priorities
+## 제품 품질 우선순위
 
-For the P0 demo, quality means the 90-second loop is reliable and legible:
+P0 데모에서 품질은 90초 루프가 안정적이고 바로 이해되는 것을 뜻합니다.
 
-- The concept is visible in the first screen.
-- The draw result is screenshotable.
-- AI failure cannot break the demo.
-- Mission success and failure both produce a reward state.
-- Room feed can show the current result without real social infrastructure.
+- 첫 화면에서 콘셉트가 보여야 합니다.
+- 뽑기 결과는 캡처 가능한 장면이어야 합니다.
+- AI 실패가 데모를 깨면 안 됩니다.
+- 미션 성공과 실패 모두 보상 상태로 이어져야 합니다.
+- 실제 소셜 인프라 없이도 친구방 피드에 현재 결과가 보여야 합니다.
 
-## Future Gates
+## 향후 품질 게이트
 
-Add more gates only when the project has enough surface area to justify them:
+프로젝트 표면적이 충분히 커졌을 때 아래 게이트를 추가합니다.
 
-- Layer dependency checks.
-- Golden or screenshot tests for key demo moments.
-- Integration tests for the P0 flow.
-- Firebase or AI contract tests after P1 infrastructure is introduced.
+- 레이어 의존성 검사
+- 핵심 데모 장면 golden 또는 screenshot 테스트
+- P0 흐름 통합 테스트
+- P1 인프라 도입 후 Firebase 또는 AI 계약 테스트

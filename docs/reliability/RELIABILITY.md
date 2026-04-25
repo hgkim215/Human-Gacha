@@ -1,32 +1,31 @@
-# Reliability
+# 안정성
 
-## Demo Reliability Principle
+## 데모 안정성 원칙
 
-The P0 demo must complete even if authentication, network, AI generation, or
-remote persistence is unavailable.
+P0 데모는 인증, 네트워크, AI 생성, 원격 저장이 불가능한 상황에서도 끝까지
+완료되어야 합니다.
 
-## Required P0 Safeguards
+## P0 필수 안전장치
 
-- Demo mode entry that does not require login.
-- Fixed demo user profile: `현기 / 취준 인간`.
-- Fixed default mood selection: `잠 부족`, `카페인 필요`, `코테 준비 중`.
-- Forced grade selection for demo scenarios, with `SR` or `SSR` as the default.
-- Fallback human card shown immediately when AI fails, times out, or returns
-  invalid JSON.
-- Dummy friend-room and whole-room data embedded locally.
+- 로그인 없이 진입 가능한 데모 모드
+- 고정 데모 사용자 프로필: `현기 / 취준 인간`
+- 고정 기본 오늘 상태: `잠 부족`, `카페인 필요`, `코테 준비 중`
+- 데모 시나리오용 고정 등급 선택. 기본값은 `SR` 또는 `SSR`
+- AI 실패, 타임아웃, JSON 오류 시 즉시 표시되는 fallback 인간 카드
+- 로컬에 포함된 더미 친구방/전체방 데이터
 
-## Failure Handling Rules
+## 실패 대응 규칙
 
-- AI generation should never block the result screen beyond the demo timeout.
-- Empty or oversized generated text should be normalized client-side.
-- Mission success and mission failure must both lead to a visible reward screen.
-- Demo data should be clearly treated as demo data in implementation and docs.
+- AI 생성은 데모 타임아웃보다 오래 결과 화면을 막으면 안 됩니다.
+- 비어 있거나 지나치게 긴 생성 문구는 클라이언트에서 보정합니다.
+- 미션 성공과 실패는 모두 눈에 보이는 보상 화면으로 이어져야 합니다.
+- 데모 데이터는 구현과 문서에서 명확히 데모 데이터로 취급합니다.
 
-## Out of Scope for P0
+## P0 제외 범위
 
-- Real Google authentication.
-- Firestore persistence.
-- Real friend invites.
-- Real global statistics.
-- Photo verification.
-- Push notifications.
+- 실제 Google 인증
+- Firestore 저장
+- 실제 친구 초대
+- 실제 전체 유저 통계
+- 사진 인증
+- 푸시 알림

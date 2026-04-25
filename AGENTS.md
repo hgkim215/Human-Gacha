@@ -1,49 +1,49 @@
-# Human-Gacha Agent Guide
+# Human-Gacha 에이전트 가이드
 
-## Project Goal
+## 프로젝트 목표
 
-Human-Gacha is a demo-first Flutter MVP for the Korean product concept
-"인간 가챠": a B-grade self-management gacha app where users draw a daily
-human grade, receive a mission, and share the result in a lightweight room feed.
+Human-Gacha는 한국어 제품 콘셉트인 **인간 가챠**를 Flutter로 구현하는
+demo-first MVP입니다. 사용자는 매일 인간 등급을 뽑고, 오늘의 미션을 받은 뒤,
+가벼운 친구방 피드에 결과를 공유합니다.
 
-The source of product truth is `docs/product/인간_가챠_PRD_v2_demo_first.md`.
-Build P0 demo value before P1/P2 production features.
+제품 판단의 기준 문서는 `docs/product/인간_가챠_PRD_v2_demo_first.md`입니다.
+P1/P2 운영 기능보다 P0 데모 가치와 발표 안정성을 먼저 만듭니다.
 
-## Working Principles
+## 작업 원칙
 
-- PRD first: tie product decisions back to the PRD before inventing behavior.
-- P0 first: prioritize demo user entry, onboarding choices, mood selection,
-  draw animation, AI/fallback card, mission reward, and dummy room feed.
-- Demo stability first: keep demo mode, fixed seeds, forced grades, and fallback
-  cards working even when network or AI calls fail.
-- Keep implementation small and visible: prefer simple Flutter/Dart structures
-  that an agent can read and debug locally.
+- PRD 우선: 새 동작을 만들기 전에 PRD 요구와 연결합니다.
+- P0 우선: 데모 사용자 진입, 온보딩 선택, 오늘 상태 선택, 뽑기 연출,
+  AI/fallback 카드, 미션 보상, 더미 친구방 피드를 먼저 완성합니다.
+- 데모 안정성 우선: 네트워크나 AI 호출이 실패해도 데모 모드, 고정 시드,
+  고정 등급, fallback 카드가 동작해야 합니다.
+- 작고 읽히는 구현: 에이전트가 로컬에서 읽고 디버깅하기 쉬운 단순한
+  Flutter/Dart 구조를 선호합니다.
 
-## Do Not Overbuild Early
+## 초기에 과구현하지 말 것
 
-- Do not add Google login, Firebase, Firestore, real friend invites, payment,
-  ranking, or photo verification until the P0 loop is complete.
-- Do not make the first screen a landing page. The first useful screen should
-  expose the gacha concept quickly.
-- Do not hide demo data behind external services during P0.
+- P0 루프가 완성되기 전에는 Google 로그인, Firebase, Firestore, 실제 친구 초대,
+  결제, 랭킹, 사진 인증을 추가하지 않습니다.
+- 첫 화면을 랜딩 페이지로 만들지 않습니다. 첫 유효 화면에서 바로 가챠 콘셉트가
+  보여야 합니다.
+- P0에서는 데모 데이터를 외부 서비스 뒤에 숨기지 않습니다.
 
-## Verification Commands
+## 검증 명령
 
-- `make get`: install Flutter dependencies.
-- `make format`: format Dart code.
-- `make format-check`: fail if formatting would change files.
-- `make analyze`: run static analysis.
-- `make test`: run Flutter tests.
-- `make check`: run format check, analysis, and tests.
+- `make get`: Flutter 의존성을 설치합니다.
+- `make format`: Dart 코드를 포맷합니다.
+- `make format-check`: 포맷 변경이 필요하면 실패합니다.
+- `make analyze`: 정적 분석을 실행합니다.
+- `make test`: Flutter 테스트를 실행합니다.
+- `make check`: 포맷 확인, 정적 분석, 테스트를 모두 실행합니다.
 
-Run `make check` before handing off implementation work unless the task is
-documentation-only and no code paths changed.
+코드 구현을 넘기기 전에는 기본적으로 `make check`를 실행합니다. 문서만 수정했고
+코드 경로가 바뀌지 않았다면 예외로 둘 수 있습니다.
 
-## Documentation Map
+## 문서 지도
 
-- `docs/product/`: product requirements and demo scope.
-- `docs/architecture/`: app layering and dependency direction.
-- `docs/exec-plans/`: execution plans and decision logs.
-- `docs/quality/`: quality gates and acceptance checks.
-- `docs/reliability/`: demo stability, fallback, and failure-mode rules.
-- `docs/references/`: source references used to shape this harness.
+- `docs/product/`: 제품 요구사항과 데모 범위
+- `docs/architecture/`: 앱 레이어링과 의존 방향
+- `docs/exec-plans/`: 실행 계획과 의사결정 기록
+- `docs/quality/`: 품질 게이트와 수용 기준
+- `docs/reliability/`: 데모 안정성, fallback, 실패 대응 규칙
+- `docs/references/`: 하네스 설계에 사용한 참고 자료
